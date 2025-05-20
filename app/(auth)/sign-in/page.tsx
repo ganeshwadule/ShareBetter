@@ -1,8 +1,16 @@
+"use client"
+
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { authClient } from "@/lib/auth-client";
 
 const page = () => {
+
+  const handleSignin = async ()=>{
+    return await authClient.signIn.social({provider:'google'})
+  }
+
   return (
     <main className="sign-in">
       <aside className="testimonial">
@@ -63,7 +71,7 @@ const page = () => {
           <p>
             Create your very first video recording with ShareBetter in no time!
           </p>
-          <button>
+          <button onClick={handleSignin}>
             <Image
               src="/assets/icons/google.svg"
               alt="google"

@@ -24,6 +24,7 @@ model User {
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
+  videoes       Video[]
 
   @@unique([email])
   @@map("user")
@@ -72,4 +73,27 @@ model Verification {
   updatedAt  DateTime?
 
   @@map("verification")
+}
+
+model Video {
+  id           String   @id @default(uuid()) @unique
+  title        String
+  description  String
+  videoUrl     String   @map("video_url")
+  videoId      String   @map("video_id")
+  thumbnailUrl String   @map("thumbnail_url")
+  visibility   Visibility
+  userId       String   @map("user_id")
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  views        Int      @default(0)
+  duration     Int?
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @default(now()) @map("updated_at")
+
+  @@map("videos")
+}
+
+enum Visibility {
+  public
+  private
 }

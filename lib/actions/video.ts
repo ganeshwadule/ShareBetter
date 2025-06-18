@@ -20,7 +20,7 @@ const accessKeys = {
 }
 
 
-const revalidatePaths = (paths:string[]){
+const revalidatePaths = (paths:string[])=>{
     paths.forEach((path)=>revalidatePath(path));
 }
 const getSessionUserId = async (): Promise<string> => {
@@ -35,8 +35,8 @@ export const getVideoUploadUrl = withErrorHandling(async () => {
 
     await getSessionUserId();
 
-    const videoResponse = await apiFetch(
-        `${VIDEO_STREAM_BASE_URL}/${BUNNY_LIB_ID}/videoes`,
+    const videoResponse = await apiFetch<BunnyVideoResponse>(
+        `${VIDEO_STREAM_BASE_URL}/${BUNNY_LIB_ID}/videos`,
         {
             method:'POST',
             bunnyType:'stream',
@@ -45,7 +45,10 @@ export const getVideoUploadUrl = withErrorHandling(async () => {
         }
     )
 
-    const uploadUrl = `${VIDEO_STREAM_BASE_URL}/${BUNNY_LIB_ID}/videoes/${videoResponse.guid}`;
+    console.log(videoResponse)
+
+    const uploadUrl = `${VIDEO_STREAM_BASE_URL}/${BUNNY_LIB_ID}/videos/${videoResponse.guid}`;
+    console.log(uploadUrl);
 
     return {
         uploadUrl,
@@ -96,6 +99,6 @@ export const saveVideoDetails = withErrorHandling(async(videoDetails:VideoDetail
     revalidatePaths(["/"])
     
     return {
-        videId:videoDetails.videoId
+        videoId:videoDetails.videoId
     };
 })

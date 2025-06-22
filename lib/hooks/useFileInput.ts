@@ -1,6 +1,7 @@
 import { ChangeEvent, useRef, useState } from "react";
 
 export const useFileInput = (size: number) => {
+    
   const [file, setFile] = useState<File | null>();
   const [previewUrl, setPreviewUrl] = useState("");
   const [duration, setDuration] = useState(0);

@@ -114,7 +114,8 @@ const page = () => {
         visibility: visibility as Visibility,
         duration: videoDuration,
       });
-     console.log("uploaded video")
+      
+      console.log("uploaded video")
       router.push(`video/${videoId}`);
 
     } catch (error) {
